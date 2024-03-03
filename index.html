@@ -240,20 +240,7 @@
                     selectedRowIndex = 0;
                     scrollSelectedRowIntoView();
 
-                    // Check if there's a previously selected channel stored in localStorage
-                    const storedChannel = localStorage.getItem('selectedChannel');
-                    if (storedChannel) {
-                        // Find the row corresponding to the stored channel and select it
-                        const storedChannelRow = table.querySelector(`img[data-channel-id="${storedChannel}"]`).parentNode.parentNode;
-                        const rows = table.querySelectorAll('tr');
-                        rows.forEach((row, index) => {
-                            if (row === storedChannelRow) {
-                                row.classList.add("selected");
-                                selectedRowIndex = index;
-                            }
-                        });
-                        scrollSelectedRowIntoView();
-                    }
+                    
                 });
 
             // Wake lock implementation
