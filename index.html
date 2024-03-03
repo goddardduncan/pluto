@@ -96,7 +96,7 @@
                 else if (event.key === "Enter") {
                     if (selectedRowIndex !== -1) {
                         const selectedRowP = tableRows[selectedRowIndex];
-                        const image = selectedRow.querySelector('img');
+                        const image = selectedRowP.querySelector('img');
                         const channelLink = image.dataset.channelLink;
                         window.location.href = channelLink;
 
@@ -379,8 +379,8 @@ const channelLinkMap = {
                                 iconImg.addEventListener("click", function() {
                                     //window.open(mappedChannelLink);
                                     window.location.href = mappedChannelLink;
-                                    localStorage.setItem('prevChannel', channelID);
-                                    localStorage.setItem('selectedChannel', channelID);
+                                    //localStorage.setItem('prevChannel', channelID);
+                                    localStorage.setItem('selectedChannelP', channelID);
                                 });
                                 iconImg.dataset.channelLink = mappedChannelLink; // Store channel link in dataset
                                 iconImg.dataset.channelId = channel; // Store channel ID in dataset
