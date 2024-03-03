@@ -76,7 +76,10 @@
                         scrollSelectedRowIntoView();
                     }
                 }
-
+		// Check if left arrow key is pressed
+                else if (event.key === "ArrowLeft") {
+                    window.location.href = "https://goddardduncan.github.io/epg/;
+                }
                 // Check if down arrow key is pressed
                 else if (event.key === "ArrowDown") {
                     if (selectedRowIndex < tableRows.length - 1) {
