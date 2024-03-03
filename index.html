@@ -4,7 +4,7 @@
     <link rel="icon" href="https://goddardduncan.github.io/epg/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="300">
-    <title>Melbourne Live TV Guide</title>
+    <title>Pluto Movies</title>
     <style>
         body {
             background-color: black;
@@ -39,7 +39,7 @@
     </style>
 </head>
 <body>
-    <h1>Melbourne Live TV Guide</h1>
+    <h1>Pluto Movies</h1>
     <table>
         <tr>
             <th>Channel</th> 
@@ -127,12 +127,14 @@
             // Map of channel IDs to their desired names
             const channelMap = {
                 "617b37b361e0fd0008cfd8c5": "Pluto TV Reaction",
+		    "561d7d484dc7c8770484914a": "Action,
                 
             };
 
             // Map of channel IDs to their desired links
             const channelLinkMap = {
                 "617b37b361e0fd0008cfd8c5": "https://r.mjh.nz/PlutoTV/617b37b361e0fd0008cfd8c5-alt.m3u8",
+		    "561d7d484dc7c8770484914a": "https://r.mjh.nz/PlutoTV/561d7d484dc7c8770484914a-alt.m3u8",
             };
 
             fetch(xmlData)
