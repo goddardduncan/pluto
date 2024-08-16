@@ -12,7 +12,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            position: relative; /* Ensure the container is relative for absolute positioning of description */
+            position: relative;
         }
 
         #video {
@@ -22,17 +22,17 @@
 
         #video-description {
             position: absolute;
-            bottom: 20px; /* Adjust based on your needs */
+            bottom: 20px;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            color: #fff; /* White text color */
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
             text-align: center;
             padding: 10px;
             box-sizing: border-box;
-            display: none; /* Initially hidden */
-	   font-family: 'Roboto', sans-serif; /* Custom font */
-	   font-size: 1.5em;
+            display: none;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5em;
         }
     </style>
 </head>
@@ -43,11 +43,6 @@
     </div>
     <script src="hls.js"></script>
     <script>
-        function getUrlParameterCheck(name, url) {
-            var startIndex = url.indexOf('https://goddardduncan.github.io/epg/') + 'https://goddardduncan.github.io/epg/'.length;
-            return url.slice(startIndex);
-        }
-
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -56,8 +51,6 @@
         }
 
         var urlParameter = getUrlParameter('url');
-        var url = window.location.href;
-        var urlParameterCheck = getUrlParameterCheck('url', url);
 
         if (Hls.isSupported() && urlParameter) {
             var video = document.getElementById('video');
@@ -65,316 +58,15 @@
             hls.loadSource(urlParameter);
             hls.attachMedia(video);
 
-           
-             // Create array of channel IDs in the order presented in the EPG
-            var channelsOrder = [
-    {"id": "5ba3fb9c4b078e0f37ad34e8", "name": "Pluto TV Spotlight"},
-    {"id": "64b585f84ea480000838e446", "name": "Pluto TV Icons"},
-    {"id": "561d7d484dc7c8770484914a", "name": "Pluto TV Action"},
-    {"id": "617b37b361e0fd0008cfd8c5", "name": "Pluto TV Reaction"},
-    {"id": "5a4d3a00ad95e4718ae8d8db", "name": "Pluto TV Comedy"},
-    {"id": "5b4e92e4694c027be6ecece1", "name": "Pluto TV Drama"},
-    {"id": "5b64a245a202b3337f09e51d", "name": "Pluto TV Fantastic"},
-    {"id": "5a66795ef91fef2c7031c599", "name": "Pluto TV Romance"},
-    {"id": "5f4d8594eb979c0007706de7", "name": "Pluto TV Crime Movies"},
-    {"id": "5b4e69e08291147bd04a9fd7", "name": "Pluto TV Thrillers"},
-    {"id": "569546031a619b8f07ce6e25", "name": "Pluto TV Horror"},
-    {"id": "5c6dc88fcd232425a6e0f06e", "name": "Pluto TV Terror"},
-    {"id": "58af4c093a41ca9d4ecabe96", "name": "Black Cinema"},
-    {"id": "645e7828e1979c00087b75b4", "name": "MovieSphere by Lionsgate"},
-    {"id": "5f4d863b98b41000076cd061", "name": "Pluto TV Staff Picks"},
-    {"id": "5b85a7582921777994caea63", "name": "Pluto TV Documentaries"},
-    {"id": "62ba60f059624e000781c436", "name": "00s Replay"},
-    {"id": "5f4d86f519358a00072b978e", "name": "90s Throwback"},
-    {"id": "5ca525b650be2571e3943c63", "name": "80s Rewind"},
-    {"id": "5f4d878d3d19b30007d2e782", "name": "70s Cinema"},
-    {"id": "5cb0cae7a461406ffe3f5213", "name": "Paramount Movie Channel"},
-    {"id": "5b4e94282d4ec87bdcbb87cd", "name": "Pluto TV Westerns"},
-    {"id": "561c5b0dada51f8004c4d855", "name": "Classic Movies Channel"},
-    {"id": "5c665db3e6c01b72c4977bc2", "name": "Pluto TV Cult Films"},
-    {"id": "58e55b14ad8e9c364d55f717", "name": "Flicks of Fury"},
-    {"id": "633354b63df9700007f6a1b7", "name": "Sitcom Legends"},
-    {"id": "5c2d64ffbdf11b71587184b8", "name": "TV Land Sitcoms"},
-    {"id": "6132619f9ddaa50007e7dd86", "name": "More TV Sitcoms"},
-    {"id": "5ca671f215a62078d2ec0abf", "name": "Comedy Central Pluto TV"},
-    {"id": "5f99e24636d67d0007a94e6d", "name": "Comedy Central Animation"},
-    {"id": "5d48678d34ceb37d3c458a55", "name": "Wild 'N Out"},
-    {"id": "5637d31f319573e26b64040b", "name": "Stand-Up TV"},
-    {"id": "60f870184865da00074210ee", "name": "British Comedy"},
-    {"id": "5f36d726234ce10007784f2a", "name": "The Bob Ross Channel"},
-    {"id": "55a6a3275616b6240c26f393", "name": "Shout! TV"},
-    {"id": "5efbd39f8c4ce900075d7698", "name": "Star Trek"},
-    {"id": "634dacf51d90320007fcd5fa", "name": "More Star Trek"},
-    {"id": "620bfa7df72827000703ddb1", "name": "Stargate"},
-    {"id": "5ce4475cd43850831ca91ce7", "name": "Doctor Who Classic"},
-    {"id": "5b4fc274694c027be6ed3eea", "name": "Pluto TV Sci-Fi"},
-    {"id": "591105034c1806b47438342c", "name": "The Asylum"},
-    {"id": "62fa8176b9884200074ef5ae", "name": "The Walking Dead Universe"},
-    {"id": "5d815eb889bca2ce7b746fdd", "name": "Baywatch"},
-    {"id": "6148c756ce8091000748d113", "name": "Iron Chef"},
-    {"id": "654931d753fc97000838fe55", "name": "Top Chef Vault"},
-    {"id": "5f21e7b24744c60007c1f6fc", "name": "Survivor"},
-    {"id": "5f21e8a6e2f12b000755afdb", "name": "The Amazing Race"},
-    {"id": "5e9f2c05172a0f0007db4786", "name": "CBS Sports HQ"},
-    {"id": "5d51e791b7dba3b2ae990ab2", "name": "This Old House"},
-    {"id": "6022bd17849c620007f43ae0", "name": "Pluto TV Home"},
-    {"id": "601a0342dcf4370007566891", "name": "Tiny House Nation"},
-    {"id": "5dc1cb279c91420009db261d", "name": "Home.Made.Nation"},
-    {"id": "636c2b3c55d2e700074105c4", "name": "PBS Antiques Roadshow"},
-    {"id": "5ce44810b421747ae467b7cd", "name": "Antiques Roadshow UK"},
-    {"id": "615b8ec39e878900073f419a", "name": "Antiques Road Trip"},
-    {"id": "5e84f54a82f05300080e6746", "name": "America's Test Kitchen"},
-    {"id": "5877ac8cb791f4eb4a140d81", "name": "Pluto TV Food"},
-    {"id": "6532e7fa045c3d0008514ca7", "name": "Warner Bros. TV Sweet Escapes"},
-    {"id": "606b5ee42b54a100079dd593", "name": "Julia Child"},
-    {"id": "64dab9df3d48f40008868091", "name": "The Jamie Oliver Channel"},
-    {"id": "5fb5844bf5514d0007945bda", "name": "BBC Food"},
-    {"id": "5fb5836fe745b600070fc743", "name": "BBC Home & Garden"},
-    {"id": "5f4ff8c8bcf3d600078af3eb", "name": "The Design Network"},
-    {"id": "656535fc2c46f30008870fae", "name": "BBC Earth"},
-    {"id": "650b69cfd1f20c0008586bac", "name": "EarthDay 365"},
-    {"id": "640a64bd73e013000893d4e0", "name": "PBS Nature"},
-    {"id": "5812bd9f249444e05d09cc4e", "name": "Naturescape"},
-    {"id": "650b6a0c6625510008e1043b", "name": "The Jack Hanna Channel"},
-    {"id": "56b27f85ff3037045055037e", "name": "Pluto TV Animals"},
-    {"id": "5bb1ad55268cae539bcedb08", "name": "The Pet Collective"},
-    {"id": "5b329e0a7b9d8872aeb49ceb", "name": "Dogs 24/7"},
-    {"id": "599375885ceaac3cabccbed7", "name": "Cats 24/7"},
-    {"id": "5ca6748a37b88b269472dad9", "name": "Nick Jr. Pluto TV"},
-    {"id": "6452c77ed3fdde00080eb3a8", "name": "Zoom! Zoom!"},
-    {"id": "5d14fb6c84dd37df3b4290c5", "name": "Dora TV"},
-    {"id": "51c75f7bb6f26ba1cd00002f", "name": "Little Stars Universe"},
-    {"id": "5eb301b7395671000780d100", "name": "Little Baby Bum"},
-    {"id": "60493283ffc52f000710edae", "name": "Bebecito Bum y sus amigos"},
-    {"id": "60faffc3fbbc120007fc4376", "name": "Baby Shark TV"},
-    {"id": "5ca673e0d0bd6c2689c94ce3", "name": "Nickelodeon Pluto TV"},
-    {"id": "5d8d08395f39465da6fb3ec4", "name": "Nickelodeon en español"},
-    {"id": "6452c814939a590008567a3b", "name": "90's Kids"},
-    {"id": "6450209d939a5900084dba1d", "name": "Totally Teen"},
-    {"id": "5d0c16d686454ead733d08f8", "name": "TOTALLY TURTLES"},
-    {"id": "60fb053712f22a0007ff14d2", "name": "Transformers TV"},
-    {"id": "60f9ebb06f0b3d000746fbdb", "name": "Team Spirit"},
-    {"id": "60fb01a24795a6000762fe83", "name": "LEGO Kids TV"},
-    {"id": "5db0ad56edc89300090d2ebb", "name": "Kids Movie Club"},
-    {"id": "60fb028c2e6a0c00075275a5", "name": "Rainbow Squad"},
-    {"id": "60fb040d4795a6000762fe8f", "name": "Kartoon Channel!"},
-    {"id": "5dae0a40e8ee0d000975e99b", "name": "pocket.watch"},
-    {"id": "5fb584b7613a31000789de5a", "name": "Ryan and Friends"},
-    {"id": "60faf9368c7ad900082bc9a8", "name": "Find Out Why"},
-    {"id": "56171fafada51f8004c4b40f", "name": "Forever Kids"},
-    {"id": "60faf9ddfcc1f200070a5932", "name": "Garfield and Friends"},
-    {"id": "60fafef7c2440500071266e0", "name": "Grande-ish"},
-    {"id": "5db0ae5af8797b00095c0794", "name": "No Parents Allowed"}
-];
-
-            
-             // Map of channel IDs to their desired links
-            const channelLinkMap = {
-    "5ba3fb9c4b078e0f37ad34e8": "play.html?url=https://r.mjh.nz/PlutoTV/5ba3fb9c4b078e0f37ad34e8-alt.m3u8",
-    "64b585f84ea480000838e446": "play.html?url=https://r.mjh.nz/PlutoTV/64b585f84ea480000838e446-alt.m3u8",
-    "561d7d484dc7c8770484914a": "play.html?url=https://r.mjh.nz/PlutoTV/561d7d484dc7c8770484914a-alt.m3u8",
-    "617b37b361e0fd0008cfd8c5": "play.html?url=https://r.mjh.nz/PlutoTV/617b37b361e0fd0008cfd8c5-alt.m3u8",
-    "5a4d3a00ad95e4718ae8d8db": "play.html?url=https://r.mjh.nz/PlutoTV/5a4d3a00ad95e4718ae8d8db-alt.m3u8",
-    "5b4e92e4694c027be6ecece1": "play.html?url=https://r.mjh.nz/PlutoTV/5b4e92e4694c027be6ecece1-alt.m3u8",
-    "5b64a245a202b3337f09e51d": "play.html?url=https://r.mjh.nz/PlutoTV/5b64a245a202b3337f09e51d-alt.m3u8",
-    "5a66795ef91fef2c7031c599": "play.html?url=https://r.mjh.nz/PlutoTV/5a66795ef91fef2c7031c599-alt.m3u8",
-    "5f4d8594eb979c0007706de7": "play.html?url=https://r.mjh.nz/PlutoTV/5f4d8594eb979c0007706de7-alt.m3u8",
-    "5b4e69e08291147bd04a9fd7": "play.html?url=https://r.mjh.nz/PlutoTV/5b4e69e08291147bd04a9fd7-alt.m3u8",
-    "569546031a619b8f07ce6e25": "play.html?url=https://r.mjh.nz/PlutoTV/569546031a619b8f07ce6e25-alt.m3u8",
-    "5c6dc88fcd232425a6e0f06e": "play.html?url=https://r.mjh.nz/PlutoTV/5c6dc88fcd232425a6e0f06e-alt.m3u8",
-    "58af4c093a41ca9d4ecabe96": "play.html?url=https://r.mjh.nz/PlutoTV/58af4c093a41ca9d4ecabe96-alt.m3u8",
-    "645e7828e1979c00087b75b4": "play.html?url=https://r.mjh.nz/PlutoTV/645e7828e1979c00087b75b4-alt.m3u8",
-    "5f4d863b98b41000076cd061": "play.html?url=https://r.mjh.nz/PlutoTV/5f4d863b98b41000076cd061-alt.m3u8",
-    "5b85a7582921777994caea63": "play.html?url=https://r.mjh.nz/PlutoTV/5b85a7582921777994caea63-alt.m3u8",
-    "62ba60f059624e000781c436": "play.html?url=https://r.mjh.nz/PlutoTV/62ba60f059624e000781c436-alt.m3u8",
-    "5f4d86f519358a00072b978e": "play.html?url=https://r.mjh.nz/PlutoTV/5f4d86f519358a00072b978e-alt.m3u8",
-    "5ca525b650be2571e3943c63": "play.html?url=https://r.mjh.nz/PlutoTV/5ca525b650be2571e3943c63-alt.m3u8",
-    "5f4d878d3d19b30007d2e782": "play.html?url=https://r.mjh.nz/PlutoTV/5f4d878d3d19b30007d2e782-alt.m3u8",
-    "5cb0cae7a461406ffe3f5213": "play.html?url=https://r.mjh.nz/PlutoTV/5cb0cae7a461406ffe3f5213-alt.m3u8",
-    "5b4e94282d4ec87bdcbb87cd": "play.html?url=https://r.mjh.nz/PlutoTV/5b4e94282d4ec87bdcbb87cd-alt.m3u8",
-    "561c5b0dada51f8004c4d855": "play.html?url=https://r.mjh.nz/PlutoTV/561c5b0dada51f8004c4d855-alt.m3u8",
-    "5c665db3e6c01b72c4977bc2": "play.html?url=https://r.mjh.nz/PlutoTV/5c665db3e6c01b72c4977bc2-alt.m3u8",
-    "58e55b14ad8e9c364d55f717": "play.html?url=https://r.mjh.nz/PlutoTV/58e55b14ad8e9c364d55f717-alt.m3u8",
-    "633354b63df9700007f6a1b7": "play.html?url=https://r.mjh.nz/PlutoTV/633354b63df9700007f6a1b7-alt.m3u8",
-    "5c2d64ffbdf11b71587184b8": "play.html?url=https://r.mjh.nz/PlutoTV/5c2d64ffbdf11b71587184b8-alt.m3u8",
-    "6132619f9ddaa50007e7dd86": "play.html?url=https://r.mjh.nz/PlutoTV/6132619f9ddaa50007e7dd86-alt.m3u8",
-    "5ca671f215a62078d2ec0abf": "play.html?url=https://r.mjh.nz/PlutoTV/5ca671f215a62078d2ec0abf-alt.m3u8",
-    "5f99e24636d67d0007a94e6d": "play.html?url=https://r.mjh.nz/PlutoTV/5f99e24636d67d0007a94e6d-alt.m3u8",
-    "5d48678d34ceb37d3c458a55": "play.html?url=https://r.mjh.nz/PlutoTV/5d48678d34ceb37d3c458a55-alt.m3u8",
-    "5637d31f319573e26b64040b": "play.html?url=https://r.mjh.nz/PlutoTV/5637d31f319573e26b64040b-alt.m3u8",
-    "60f870184865da00074210ee": "play.html?url=https://r.mjh.nz/PlutoTV/60f870184865da00074210ee-alt.m3u8",
-    "5f36d726234ce10007784f2a": "play.html?url=https://r.mjh.nz/PlutoTV/5f36d726234ce10007784f2a-alt.m3u8",
-    "55a6a3275616b6240c26f393": "play.html?url=https://r.mjh.nz/PlutoTV/55a6a3275616b6240c26f393-alt.m3u8",
-    "5efbd39f8c4ce900075d7698": "play.html?url=https://r.mjh.nz/PlutoTV/5efbd39f8c4ce900075d7698-alt.m3u8",
-    "634dacf51d90320007fcd5fa": "play.html?url=https://r.mjh.nz/PlutoTV/634dacf51d90320007fcd5fa-alt.m3u8",
-    "620bfa7df72827000703ddb1": "play.html?url=https://r.mjh.nz/PlutoTV/620bfa7df72827000703ddb1-alt.m3u8",
-    "5ce4475cd43850831ca91ce7": "play.html?url=https://r.mjh.nz/PlutoTV/5ce4475cd43850831ca91ce7-alt.m3u8",
-    "5b4fc274694c027be6ed3eea": "play.html?url=https://r.mjh.nz/PlutoTV/5b4fc274694c027be6ed3eea-alt.m3u8",
-    "591105034c1806b47438342c": "play.html?url=https://r.mjh.nz/PlutoTV/591105034c1806b47438342c-alt.m3u8",
-    "62fa8176b9884200074ef5ae": "play.html?url=https://r.mjh.nz/PlutoTV/62fa8176b9884200074ef5ae-alt.m3u8",
-    "5d815eb889bca2ce7b746fdd": "play.html?url=https://r.mjh.nz/PlutoTV/5d815eb889bca2ce7b746fdd-alt.m3u8",
-    "6148c756ce8091000748d113": "play.html?url=https://r.mjh.nz/PlutoTV/6148c756ce8091000748d113-alt.m3u8",
-    "654931d753fc97000838fe55": "play.html?url=https://r.mjh.nz/PlutoTV/654931d753fc97000838fe55-alt.m3u8",
-    "5f21e7b24744c60007c1f6fc": "play.html?url=https://r.mjh.nz/PlutoTV/5f21e7b24744c60007c1f6fc-alt.m3u8",
-    "5f21e8a6e2f12b000755afdb": "play.html?url=https://r.mjh.nz/PlutoTV/5f21e8a6e2f12b000755afdb-alt.m3u8",
-    "5e9f2c05172a0f0007db4786": "play.html?url=https://r.mjh.nz/PlutoTV/5e9f2c05172a0f0007db4786-alt.m3u8",
-    "5d51e791b7dba3b2ae990ab2": "play.html?url=https://r.mjh.nz/PlutoTV/5d51e791b7dba3b2ae990ab2-alt.m3u8",
-    "6022bd17849c620007f43ae0": "play.html?url=https://r.mjh.nz/PlutoTV/6022bd17849c620007f43ae0-alt.m3u8",
-    "601a0342dcf4370007566891": "play.html?url=https://r.mjh.nz/PlutoTV/601a0342dcf4370007566891-alt.m3u8",
-    "5dc1cb279c91420009db261d": "play.html?url=https://r.mjh.nz/PlutoTV/5dc1cb279c91420009db261d-alt.m3u8",
-    "636c2b3c55d2e700074105c4": "play.html?url=https://r.mjh.nz/PlutoTV/636c2b3c55d2e700074105c4-alt.m3u8",
-    "5ce44810b421747ae467b7cd": "play.html?url=https://r.mjh.nz/PlutoTV/5ce44810b421747ae467b7cd-alt.m3u8",
-    "615b8ec39e878900073f419a": "play.html?url=https://r.mjh.nz/PlutoTV/615b8ec39e878900073f419a-alt.m3u8",
-    "5e84f54a82f05300080e6746": "play.html?url=https://r.mjh.nz/PlutoTV/5e84f54a82f05300080e6746-alt.m3u8",
-    "5877ac8cb791f4eb4a140d81": "play.html?url=https://r.mjh.nz/PlutoTV/5877ac8cb791f4eb4a140d81-alt.m3u8",
-    "6532e7fa045c3d0008514ca7": "play.html?url=https://r.mjh.nz/PlutoTV/6532e7fa045c3d0008514ca7-alt.m3u8",
-    "606b5ee42b54a100079dd593": "play.html?url=https://r.mjh.nz/PlutoTV/606b5ee42b54a100079dd593-alt.m3u8",
-    "64dab9df3d48f40008868091": "play.html?url=https://r.mjh.nz/PlutoTV/64dab9df3d48f40008868091-alt.m3u8",
-    "5fb5844bf5514d0007945bda": "play.html?url=https://r.mjh.nz/PlutoTV/5fb5844bf5514d0007945bda-alt.m3u8",
-    "5fb5836fe745b600070fc743": "play.html?url=https://r.mjh.nz/PlutoTV/5fb5836fe745b600070fc743-alt.m3u8",
-    "5f4ff8c8bcf3d600078af3eb": "play.html?url=https://r.mjh.nz/PlutoTV/5f4ff8c8bcf3d600078af3eb-alt.m3u8",
-    "656535fc2c46f30008870fae": "play.html?url=https://r.mjh.nz/PlutoTV/656535fc2c46f30008870fae-alt.m3u8",
-    "650b69cfd1f20c0008586bac": "play.html?url=https://r.mjh.nz/PlutoTV/650b69cfd1f20c0008586bac-alt.m3u8",
-    "640a64bd73e013000893d4e0": "play.html?url=https://r.mjh.nz/PlutoTV/640a64bd73e013000893d4e0-alt.m3u8",
-    "5812bd9f249444e05d09cc4e": "play.html?url=https://r.mjh.nz/PlutoTV/5812bd9f249444e05d09cc4e-alt.m3u8",
-    "650b6a0c6625510008e1043b": "play.html?url=https://r.mjh.nz/PlutoTV/650b6a0c6625510008e1043b-alt.m3u8",
-    "56b27f85ff3037045055037e": "play.html?url=https://r.mjh.nz/PlutoTV/56b27f85ff3037045055037e-alt.m3u8",
-    "5bb1ad55268cae539bcedb08": "play.html?url=https://r.mjh.nz/PlutoTV/5bb1ad55268cae539bcedb08-alt.m3u8",
-    "5b329e0a7b9d8872aeb49ceb": "play.html?url=https://r.mjh.nz/PlutoTV/5b329e0a7b9d8872aeb49ceb-alt.m3u8",
-    "599375885ceaac3cabccbed7": "play.html?url=https://r.mjh.nz/PlutoTV/599375885ceaac3cabccbed7-alt.m3u8",
-    "5ca6748a37b88b269472dad9": "play.html?url=https://r.mjh.nz/PlutoTV/5ca6748a37b88b269472dad9-alt.m3u8",
-    "6452c77ed3fdde00080eb3a8": "play.html?url=https://r.mjh.nz/PlutoTV/6452c77ed3fdde00080eb3a8-alt.m3u8",
-    "5d14fb6c84dd37df3b4290c5": "play.html?url=https://r.mjh.nz/PlutoTV/5d14fb6c84dd37df3b4290c5-alt.m3u8",
-    "51c75f7bb6f26ba1cd00002f": "play.html?url=https://r.mjh.nz/PlutoTV/51c75f7bb6f26ba1cd00002f-alt.m3u8",
-    "5eb301b7395671000780d100": "play.html?url=https://r.mjh.nz/PlutoTV/5eb301b7395671000780d100-alt.m3u8",
-    "60493283ffc52f000710edae": "play.html?url=https://r.mjh.nz/PlutoTV/60493283ffc52f000710edae-alt.m3u8",
-    "60faffc3fbbc120007fc4376": "play.html?url=https://r.mjh.nz/PlutoTV/60faffc3fbbc120007fc4376-alt.m3u8",
-    "5ca673e0d0bd6c2689c94ce3": "play.html?url=https://r.mjh.nz/PlutoTV/5ca673e0d0bd6c2689c94ce3-alt.m3u8",
-    "5d8d08395f39465da6fb3ec4": "play.html?url=https://r.mjh.nz/PlutoTV/5d8d08395f39465da6fb3ec4-alt.m3u8",
-    "6452c814939a590008567a3b": "play.html?url=https://r.mjh.nz/PlutoTV/6452c814939a590008567a3b-alt.m3u8",
-    "6450209d939a5900084dba1d": "play.html?url=https://r.mjh.nz/PlutoTV/6450209d939a5900084dba1d-alt.m3u8",
-    "5d0c16d686454ead733d08f8": "play.html?url=https://r.mjh.nz/PlutoTV/5d0c16d686454ead733d08f8-alt.m3u8",
-    "60fb053712f22a0007ff14d2": "play.html?url=https://r.mjh.nz/PlutoTV/60fb053712f22a0007ff14d2-alt.m3u8",
-    "60f9ebb06f0b3d000746fbdb": "play.html?url=https://r.mjh.nz/PlutoTV/60f9ebb06f0b3d000746fbdb-alt.m3u8",
-    "60fb01a24795a6000762fe83": "play.html?url=https://r.mjh.nz/PlutoTV/60fb01a24795a6000762fe83-alt.m3u8",
-    "5db0ad56edc89300090d2ebb": "play.html?url=https://r.mjh.nz/PlutoTV/5db0ad56edc89300090d2ebb-alt.m3u8",
-    "60fb028c2e6a0c00075275a5": "play.html?url=https://r.mjh.nz/PlutoTV/60fb028c2e6a0c00075275a5-alt.m3u8",
-    "60fb040d4795a6000762fe8f": "play.html?url=https://r.mjh.nz/PlutoTV/60fb040d4795a6000762fe8f-alt.m3u8",
-    "5dae0a40e8ee0d000975e99b": "play.html?url=https://r.mjh.nz/PlutoTV/5dae0a40e8ee0d000975e99b-alt.m3u8",
-    "5fb584b7613a31000789de5a": "play.html?url=https://r.mjh.nz/PlutoTV/5fb584b7613a31000789de5a-alt.m3u8",
-    "60faf9368c7ad900082bc9a8": "play.html?url=https://r.mjh.nz/PlutoTV/60faf9368c7ad900082bc9a8-alt.m3u8",
-    "56171fafada51f8004c4b40f": "play.html?url=https://r.mjh.nz/PlutoTV/56171fafada51f8004c4b40f-alt.m3u8",
-    "60faf9ddfcc1f200070a5932": "play.html?url=https://r.mjh.nz/PlutoTV/60faf9ddfcc1f200070a5932-alt.m3u8",
-    "60fafef7c2440500071266e0": "play.html?url=https://r.mjh.nz/PlutoTV/60fafef7c2440500071266e0-alt.m3u8",
-    "5db0ae5af8797b00095c0794": "play.html?url=https://r.mjh.nz/PlutoTV/5db0ae5af8797b00095c0794-alt.m3u8"
-};
-
-
-            
-
-            var isMatch = false;
-            var storedChannel = localStorage.getItem('selectedChannel');
-            if (storedChannel && channelLinkMap.hasOwnProperty(storedChannel)) {
-                var desiredChannelUrl = channelLinkMap[storedChannel];
-                if (urlParameterCheck === desiredChannelUrl) {
-                    isMatch = true;
-                }
-            }
-
-            if (!isMatch && urlParameterCheck) {
-                for (var channelId in channelLinkMap) {
-                    if (channelLinkMap.hasOwnProperty(channelId)) {
-                        if (channelLinkMap[channelId] === urlParameterCheck) {
-                            storedChannel = channelId;
-                            localStorage.setItem('selectedChannel', storedChannel);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            var currentIndex = channelsOrder.findIndex(channel => channel.id === storedChannel);
-            var backChannel = localStorage.getItem('prevChannel');
-            var backChannelIndex = channelsOrder.findIndex(channel => channel.id === backChannel);
-	    var currentChannel = channelsOrder.find(channel => channel.id === storedChannel);
-	    document.title = currentChannel.name;
-
-            localStorage.setItem('Matchey', isMatch.toString());
-
-            function toggleSubtitles() {
-                var tracks = video.textTracks;
-                for (var i = 0; i < tracks.length; i++) {
-                    var track = tracks[i];
-                    track.enabled = !track.enabled;
-                    if (track.kind === 'subtitles') {
-                        track.mode = track.mode === 'showing' ? 'disabled' : 'showing';
-                    }
-                }
-            }
-
-            video.addEventListener('contextmenu', function(event) {
-                event.preventDefault();
-                toggleSubtitles();
-            });
-
+            // Handling key events for skipping
             window.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-		   var video = document.getElementById('video');
-                    video.play();
-                } else if (event.key === 'Escape' || (event.key === 'ArrowLeft' && event.metaKey)) {
-                    event.preventDefault();
-                    var backIndex = (backChannelIndex) % channelsOrder.length;
-                    var backbuttonChannel = channelsOrder[backIndex];
-                    var backChannelLink = channelLinkMap[backbuttonChannel.id];
-                    localStorage.setItem('prevChannel', backbuttonChannel.id);
-                    window.location.href = backChannelLink;
-                } else if (event.key === 'ArrowLeft') {
-                    var previousIndex = currentIndex - 1;
-                    if (previousIndex < 0) {
-                        previousIndex = channelsOrder.length - 1;
-                    }
-                    var previousChannel = channelsOrder[previousIndex];
-                    var previousChannelLink = channelLinkMap[previousChannel.id];
-                    localStorage.setItem('selectedChannel', previousChannel.id);
-                    window.location.href = previousChannelLink;
+                if (event.key === 'ArrowLeft') {
+                    // Skip forward 1 minute
+                    video.currentTime += 60;
                 } else if (event.key === 'ArrowRight') {
-                    var nextIndex = (currentIndex + 1) % channelsOrder.length;
-                    var nextChannel = channelsOrder[nextIndex];
-                    var nextChannelLink = channelLinkMap[nextChannel.id];
-                    localStorage.setItem('selectedChannel', nextChannel.id);
-                    window.location.href = nextChannelLink;
-                } else if (event.key === 'ArrowUp') {
-                    var videoDescription = document.getElementById('video-description');
-                    if (videoDescription.style.display === 'none' || videoDescription.style.display === '') {
-                        videoDescription.style.display = 'block';
-                    } else {
-                        videoDescription.style.display = 'none';
-                    }
-                }   else if (event.key === 'ArrowDown') {
-        		  // Toggle mute/unmute on the video player
-        		  var video = document.getElementById('video');
-        		  video.muted = !video.muted;
-		  // Check if the video is now muted
-        			if (video.muted) {
-            		// Attempt to enable subtitles
-           		 var tracks = video.textTracks;
-           		 for (var i = 0; i < tracks.length; i++) {
-            		    if (tracks[i].kind === 'subtitles') {
-                    		tracks[i].mode = 'showing'; // Enable subtitles
-                   		 break; // Assuming we only need to enable the first subtitles track found
-              			  }
-            			}
-       			 } else {
-           			 // Optionally, disable subtitles when unmuting
-           			 var tracks = video.textTracks;
-           			 for (var i = 0; i < tracks.length; i++) {
-              			  if (tracks[i].kind === 'subtitles') {
-                			    tracks[i].mode = 'hidden'; // Disable subtitles
-                  		    break; // Assuming we only want to disable the first subtitles track found
-                			  }
-           			 }
-       			 }
-       		  }
+                    // Skip forward to the next segment in the playlist
+                    hls.nextLevel = hls.nextLevel + 1;
+                }
             });
         }
 
@@ -399,10 +91,9 @@
 
                                 if (currentTime >= start && currentTime <= end) {
                                     const descElements = program.getElementsByTagName("desc");
-				  const desc = descElements.length > 0 ? descElements[0].textContent : 'No description available';
+                                    const desc = descElements.length > 0 ? descElements[0].textContent : 'No description available';
                                     localStorage.setItem('descripto', desc);
                                     document.getElementById('video-description').textContent = desc;
-                                    //document.getElementById('video-description').style.display = 'block';
                                     break;
                                 }
                             }
@@ -416,7 +107,3 @@
     </script>
 </body>
 </html>
-
-
-
-            
